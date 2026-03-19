@@ -165,7 +165,12 @@ classification_data <- read.csv('https://raw.githubusercontent.com/BIKASHBHOWMIK
 
 ```
 
-**2. The data set has three key columns we will use:**
+<h2>
+**2.**
+</h2>
+
+The data set has three key columns we will use:
+
 
 * class: the actual class for the observation
 
@@ -305,7 +310,7 @@ cat(sprintf("accuracy: %.4f\n", accuracy))
 The model achieved an accuracy of 0.8066, correctly predicting about 81% of cases. While this shows good overall performance, other metrics like precision and recall are needed to fully assess its effectiveness.
 
 <h2 id="section6">
-4. Write a function that takes the data set as a dataframe, with actual and predicted classifications identified, and returns the classification error rate of the predictions.
+**4. Write a function that takes the data set as a dataframe, with actual and predicted classifications identified, and returns the classification error rate of the predictions.**
 </h2>
 
 ```{r, echo=FALSE,out.width="50%", out.height="60px",fig.align="center"}
@@ -414,7 +419,7 @@ cat(sprintf("specificity: %.4f\n", specificity))
 Specificity measures the proportion of actual negative cases that are correctly identified by the model. A higher specificity indicates fewer false positives, meaning the model is good at ruling out negative cases. In this dataset, the specificity is 0.9597, showing that the model correctly identifies about 96% of the negative cases, which indicates strong performance in detecting negatives.
 
 <h2 id="section10">
-8. Write a function that takes the data set as a dataframe, with actual and predicted classifications identified, and returns the F1 score of the predictions.
+**8. Write a function that takes the data set as a dataframe, with actual and predicted classifications identified, and returns the F1 score of the predictions.**
 </h2>
 
 ```{r, echo=FALSE,out.width="50%", out.height="60px",fig.align="center"}
@@ -436,14 +441,56 @@ cat(sprintf("F1 Score: %.4f\n", f1score))
 
 The F1 score of 0.6067 indicates a moderate balance between precision and sensitivity. This means the model is reasonably effective at identifying positive cases while keeping false positives relatively low. It reflects that the model performs better than random guessing but still has room for improvement in capturing all true positives.
 
-
+<h2>
 **9. Before we move on, let’s consider a question that was asked: What are the bounds on the F1 score? Show that the F1 score will always be between 0 and 1. (Hint: If 0 < 𝑎 < 1 and 0 < 𝑏 < 1 then 𝑎𝑏 < 𝑎.)**
+</h2>
 
-Yes, the output below addresses the question regarding the bounds on the F1 score.
+We can answer this question both theoretically and practically. 
 
-Explanation:
+**Theoretically**
 
-Interpretation of the Matrix: - The matrix shown below illustrates different precision and recall values, with each resulting in an F1 score. In all cases, the F1 score lies between 0 and 1. - The test cases: - f1_score(0, 1): Results in 0, which is the lower bound. - f1_score(1, 1): Results in 1, which is the upper bound. - f1_score(0.5, 0.5): Results in a value between 0 and 1, which is a typical case for non-extreme precision and recall values.
+F1 score = (2 x Precision x Sensitivity) / ( Precision + Sensitivity )
+
+Where 
+Precision = TP / (TP + FP)
+
+Sensitivity = TP / (TP + FN)
+
+Number of true positives (TP) , false positives (FP) and false negatives (FN) are always non negative . 
+
+Since TP <= TP + FP , range of precision will be 0 to 1 
+
+Since TP <= TP + FN , range of sensitivity will also be between 0 and 1 
+ 
+**Lower bound of F1** 
+
+Since Precision >= 0 , Sensitivity >= 0 
+
+2PS >= 0 , P+S >= 0 
+
+F1 = 2PS/P+S >= 0 
+
+
+**Upper bound of F1** 
+
+Since 
+1 >= Precision >= 0 , 1 >= Sensitivity >= 0 
+
+PS < P and PS < S 
+
+Adding both the inequalities , we get 
+
+PS + PS < P + S , or 
+
+2PS < P + S , therefore 
+
+2PS/( P+S ) = F1  < 1 
+
+Therefore the upper limit of F1 score is 1 
+
+**Practically** 
+ 
+The matrix shown below illustrates different precision and recall values, with each resulting in an F1 score. In all cases, the F1 score lies between 0 and 1. - The test cases: - f1_score(0, 1): Results in 0, which is the lower bound. - f1_score(1, 1): Results in 1, which is the upper bound. - f1_score(0.5, 0.5): Results in a value between 0 and 1, which is a typical case for non-extreme precision and recall values.
 
 This confirms that the F1 score is bounded between 0 and 1, thus answering the question.
 
